@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
-import { OpenAI } from 'openai';
-
+import { OpenaiService } from './openai.service';
 @Injectable()
 export class AppService {
-  constructor(private configService: ConfigService) {}
+  constructor(private readonly openaiService: OpenaiService) {}
 
   async submitAnswerAndLogPage(answer: string): Promise<string> {
     try {
@@ -52,13 +50,7 @@ export class AppService {
   }
 
   async answerQuestion(question: string): Promise<string> {
-    // Use ConfigService to get API key
-    const apiKey = this.configService.get<string>('OPENAI_API_KEY');
-    if (!apiKey) {
-      throw new Error('OpenAI API key not set in environment variables');
-    }
-
-    const openai = new OpenAI({ apiKey });
+    const openai = this.openaiService.getInstance();
 
     // Add an instruction to only write the answer, nothing else
     const prompt = `Only write the answer to the following question, and nothing else - answer should be number:\n\n${question}`;
