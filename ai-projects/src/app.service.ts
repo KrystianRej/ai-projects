@@ -21,12 +21,9 @@ export class AppService {
 
       const html = postResponse.data;
 
-      const match = html.match(/\{\{FLG:([^}]+)\}\}/);
-      if (match && match[1]) {
-        return match[1];
-      } else {
-        throw new Error('Flag not found in HTML');
-      }
+      console.dir({ html }, { depth: null, colors: true });
+
+      return html;
 
       // const getResponse = await axios.get(url);
       // console.log(getResponse.data);
@@ -45,6 +42,7 @@ export class AppService {
     const match = html.match(
       /<p id="human-question">Question:<br\s*\/?>(.*?)<\/p>/i,
     );
+
     if (match && match[1]) {
       // Remove any HTML tags and trim whitespace
       const question = match[1].replace(/<[^>]*>/g, '').trim();
@@ -63,7 +61,7 @@ export class AppService {
     const openai = new OpenAI({ apiKey });
 
     // Add an instruction to only write the answer, nothing else
-    const prompt = `Only write the answer to the following question, and nothing else:\n\n${question}`;
+    const prompt = `Only write the answer to the following question, and nothing else - answer should be number:\n\n${question}`;
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
