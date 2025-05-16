@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OpenaiService } from './openai.service';
 import { Task2Service } from './task2.service';
+import { Task3Service } from './task3.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -11,6 +12,6 @@ import { Task2Service } from './task2.service';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, OpenaiService, Task2Service],
+  providers: [AppService, OpenaiService, Task2Service, Task3Service],
 })
 export class AppModule {}
