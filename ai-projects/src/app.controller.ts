@@ -3,6 +3,7 @@ import { AppService } from './app.service';
 import { Task2Service } from './task2.service';
 import { Task3Service, Task3Response } from './task3.service';
 import { Task5Service } from './task5.service';
+import { Task6Service } from './task6.service';
 @Controller()
 export class AppController {
   constructor(
@@ -10,6 +11,7 @@ export class AppController {
     private readonly task2Service: Task2Service,
     private readonly task3Service: Task3Service,
     private readonly task5Service: Task5Service,
+    private readonly task6Service: Task6Service,
   ) {}
 
   @Get('content')
@@ -30,5 +32,10 @@ export class AppController {
   @Get('task5')
   async task5(): Promise<Task3Response> {
     return this.task5Service.censorAndReport();
+  }
+
+  @Get('task6')
+  async task6(): Promise<Task3Response> {
+    return this.task6Service.performTranscriptAnalysis();
   }
 }

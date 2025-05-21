@@ -56,7 +56,7 @@ Return only the censored sentence, nothing else.
 
   async reportAnswer(answer: string | object): Promise<Task3Response> {
     const apikey = this.configService.get<string>('AI_DEVS_AI_KEY');
-    const axios = (await import('axios')).default;
+
     const payload = {
       task: 'CENZURA',
       apikey,
