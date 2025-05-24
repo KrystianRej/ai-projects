@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 export type Task3Response = {
   code: number;
   message: string;
+  [key: string]: any;
 };
 
 @Injectable()
