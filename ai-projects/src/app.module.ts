@@ -10,6 +10,7 @@ import { Task6Service } from './task6.service';
 import { Task7Service } from './task7.service';
 import { CloudinaryService } from './cloudinary.service';
 import { Task8Service } from './task8.service';
+import { Task9Service } from './task9.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,6 +28,7 @@ import { Task8Service } from './task8.service';
     Task6Service,
     Task7Service,
     Task8Service,
+    Task9Service,
   ],
 })
 export class AppModule {}

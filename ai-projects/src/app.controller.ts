@@ -6,6 +6,7 @@ import { Task5Service } from './task5.service';
 import { Task6Service } from './task6.service';
 import { Task7Service } from './task7.service';
 import { Task8Service } from './task8.service';
+import { Task9Service } from './task9.service';
 @Controller()
 export class AppController {
   constructor(
@@ -16,6 +17,7 @@ export class AppController {
     private readonly task6Service: Task6Service,
     private readonly task7Service: Task7Service,
     private readonly task8Service: Task8Service,
+    private readonly task9Service: Task9Service,
   ) {}
 
   @Get('content')
@@ -51,5 +53,10 @@ export class AppController {
   @Get('task8')
   async task8(): Promise<Task3Response> {
     return this.task8Service.performRobotImageGeneration();
+  }
+
+  @Get('task9')
+  async task9(): Promise<Task3Response> {
+    return this.task9Service.performCategorization();
   }
 }
