@@ -7,6 +7,8 @@ import { Task6Service } from './task6.service';
 import { Task7Service } from './task7.service';
 import { Task8Service } from './task8.service';
 import { Task9Service } from './task9.service';
+import { Task10Service } from './task10.service';
+import { Task11Service } from './task11.service';
 @Controller()
 export class AppController {
   constructor(
@@ -18,6 +20,8 @@ export class AppController {
     private readonly task7Service: Task7Service,
     private readonly task8Service: Task8Service,
     private readonly task9Service: Task9Service,
+    private readonly task10Service: Task10Service,
+    private readonly task11Service: Task11Service,
   ) {}
 
   @Get('content')
@@ -58,5 +62,15 @@ export class AppController {
   @Get('task9')
   async task9(): Promise<Task3Response> {
     return this.task9Service.performCategorization();
+  }
+
+  @Get('task10')
+  async task10(): Promise<Task3Response> {
+    return this.task10Service.processMarkdownAnswerQuestions();
+  }
+
+  @Get('task11')
+  async task11(): Promise<Task3Response> {
+    return this.task11Service.processWholeFlow();
   }
 }
