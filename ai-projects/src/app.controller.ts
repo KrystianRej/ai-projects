@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Task2Service } from './task2.service';
 import { Task3Service, Task3Response } from './task3.service';
@@ -10,10 +10,13 @@ import { Task9Service } from './task9.service';
 import { Task10Service } from './task10.service';
 import { Task11Service } from './task11.service';
 import { Task12Service } from './task12.service';
+import { ReportInput, ReportService } from './report.service';
+import { Task13Service } from './task13.service';
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
+    private readonly reportService: ReportService,
     private readonly task2Service: Task2Service,
     private readonly task3Service: Task3Service,
     private readonly task5Service: Task5Service,
@@ -24,7 +27,13 @@ export class AppController {
     private readonly task10Service: Task10Service,
     private readonly task11Service: Task11Service,
     private readonly task12Service: Task12Service,
+    private readonly task13Service: Task13Service,
   ) {}
+
+  @Post('reportAnswer')
+  async reportAnswer(@Body() reportInput: ReportInput): Promise<Task3Response> {
+    return this.reportService.reportAnswer(reportInput);
+  }
 
   @Get('content')
   async getContent(): Promise<string> {
@@ -84,5 +93,10 @@ export class AppController {
   @Post('task12/generate')
   async task12Generate(): Promise<void> {
     await this.task12Service.processRaportVectorsGeneration();
+  }
+
+  @Get('task13')
+  async task13(): Promise<Task3Response> {
+    return this.task13Service.examineDatabaseAndReportAnswer();
   }
 }
