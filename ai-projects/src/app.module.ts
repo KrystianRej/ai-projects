@@ -13,6 +13,8 @@ import { Task8Service } from './task8.service';
 import { Task9Service } from './task9.service';
 import { Task10Service } from './task10.service';
 import { Task11Service } from './task11.service';
+import { VectorService } from './VectorService';
+import { Task12Service } from './task12.service';
 
 @Module({
   imports: [
@@ -25,6 +27,7 @@ import { Task11Service } from './task11.service';
     AppService,
     OpenaiService,
     CloudinaryService,
+    VectorService,
     Task2Service,
     Task3Service,
     Task5Service,
@@ -34,6 +37,7 @@ import { Task11Service } from './task11.service';
     Task9Service,
     Task10Service,
     Task11Service,
+    Task12Service,
   ],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Task2Service } from './task2.service';
 import { Task3Service, Task3Response } from './task3.service';
@@ -9,6 +9,7 @@ import { Task8Service } from './task8.service';
 import { Task9Service } from './task9.service';
 import { Task10Service } from './task10.service';
 import { Task11Service } from './task11.service';
+import { Task12Service } from './task12.service';
 @Controller()
 export class AppController {
   constructor(
@@ -22,6 +23,7 @@ export class AppController {
     private readonly task9Service: Task9Service,
     private readonly task10Service: Task10Service,
     private readonly task11Service: Task11Service,
+    private readonly task12Service: Task12Service,
   ) {}
 
   @Get('content')
@@ -72,5 +74,15 @@ export class AppController {
   @Get('task11')
   async task11(): Promise<Task3Response> {
     return this.task11Service.processWholeFlow();
+  }
+
+  @Get('task12/question')
+  async task12Question(): Promise<Task3Response | string> {
+    return this.task12Service.askRaportQuestion();
+  }
+
+  @Post('task12/generate')
+  async task12Generate(): Promise<void> {
+    await this.task12Service.processRaportVectorsGeneration();
   }
 }
