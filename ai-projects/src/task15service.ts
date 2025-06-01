@@ -3,6 +3,7 @@ import { ReportService } from './report.service';
 import { AidevsApiService } from './aidevs-api.service';
 import { Neo4jService } from './neo4j.service';
 import { Task3Response } from './task3.service';
+import { OpenaiService } from './openai.service';
 
 type User = {
   id: string;
@@ -23,6 +24,7 @@ export class Task15Service {
     private readonly reportService: ReportService,
     private readonly aidevsApiService: AidevsApiService,
     private readonly neo4jService: Neo4jService,
+    private readonly openaiService: OpenaiService,
   ) {}
 
   private async selectFromBanan<T>(colleciton: string): Promise<{
@@ -125,5 +127,11 @@ export class Task15Service {
       task: 'connections',
       answer: path,
     });
+  }
+
+  public async createTranscription(): Promise<string> {
+    return this.openaiService.transcribeAudio(
+      'src/localAssets/recordings/part.wav',
+    );
   }
 }

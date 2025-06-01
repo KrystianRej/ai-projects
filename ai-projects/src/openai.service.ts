@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OpenAI } from 'openai';
 import { CreateEmbeddingResponse } from 'openai/resources/embeddings';
-
+import * as fs from 'fs';
 @Injectable()
 export class OpenaiService {
   private openai: OpenAI;
@@ -24,6 +24,21 @@ export class OpenaiService {
       return response.data[0].embedding;
     } catch (error) {
       console.error('Error creating embedding:', error);
+      throw error;
+    }
+  }
+
+  async transcribeAudio(filePath: string): Promise<string> {
+    try {
+      const fileStream = fs.createReadStream(filePath);
+
+      const transcription = await this.openai.audio.transcriptions.create({
+        file: fileStream,
+        model: 'whisper-1',
+      });
+      return transcription.text;
+    } catch (error) {
+      console.error('Error transcribing audio:', error);
       throw error;
     }
   }

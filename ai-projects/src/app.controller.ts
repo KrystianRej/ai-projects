@@ -113,4 +113,9 @@ export class AppController {
   async task15(): Promise<Task3Response> {
     return this.task15Service.loadDataFindPathAndReportAnswer();
   }
+
+  @Get('task15/transcription')
+  async task15Transcription(): Promise<string> {
+    return this.task15Service.createTranscription();
+  }
 }
