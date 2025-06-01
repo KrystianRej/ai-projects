@@ -13,6 +13,7 @@ import { Task12Service } from './task12.service';
 import { ReportInput, ReportService } from './report.service';
 import { Task13Service } from './task13.service';
 import { Task14Service } from './task14service';
+import { Task15Service } from './task15service';
 @Controller()
 export class AppController {
   constructor(
@@ -30,6 +31,7 @@ export class AppController {
     private readonly task12Service: Task12Service,
     private readonly task13Service: Task13Service,
     private readonly task14Service: Task14Service,
+    private readonly task15Service: Task15Service,
   ) {}
 
   @Post('reportAnswer')
@@ -105,5 +107,10 @@ export class AppController {
   @Get('task14')
   async task14(): Promise<Task3Response | null> {
     return this.task14Service.findBarbara();
+  }
+
+  @Get('task15')
+  async task15(): Promise<Task3Response> {
+    return this.task15Service.loadDataFindPathAndReportAnswer();
   }
 }
