@@ -17,7 +17,9 @@ import { VectorService } from './VectorService';
 import { Task12Service } from './task12.service';
 import { ReportService } from './report.service';
 import { Task13Service } from './task13.service';
-
+import { FileService } from './file.service';
+import { AidevsApiService } from './aidevs-api.service';
+import { Task14Service } from './task14service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,6 +44,9 @@ import { Task13Service } from './task13.service';
     Task11Service,
     Task12Service,
     Task13Service,
+    Task14Service,
+    FileService,
+    AidevsApiService,
   ],
 })
 export class AppModule {}

@@ -32,10 +32,10 @@ export class ReportService {
       );
       return { ...response.data, answer: input.answer };
     } catch (error: any) {
-      const finalError =
-        error instanceof Error ? error.message : 'Unknown error';
-      console.error(error);
-      throw new Error(`Report request failed: ${finalError}`);
+      if (axios.isAxiosError(error) && error.response) {
+        console.error('Error response:', error.response.data);
+      }
+      throw new Error('Report request failed');
     }
   }
 }
