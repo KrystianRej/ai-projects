@@ -14,6 +14,7 @@ import { ReportInput, ReportService } from './report.service';
 import { Task13Service } from './task13.service';
 import { Task14Service } from './task14service';
 import { Task15Service } from './task15service';
+import { Task16Service } from './task16service';
 @Controller()
 export class AppController {
   constructor(
@@ -32,6 +33,7 @@ export class AppController {
     private readonly task13Service: Task13Service,
     private readonly task14Service: Task14Service,
     private readonly task15Service: Task15Service,
+    private readonly task16Service: Task16Service,
   ) {}
 
   @Post('reportAnswer')
@@ -117,5 +119,15 @@ export class AppController {
   @Get('task15/transcription')
   async task15Transcription(): Promise<string> {
     return this.task15Service.createTranscription();
+  }
+
+  @Get('task16/prepare-photos')
+  async task16PreparePhotos(): Promise<void> {
+    await this.task16Service.processImages();
+  }
+
+  @Get('task16')
+  async task16(): Promise<Task3Response> {
+    return this.task16Service.generateBarbaraDescription();
   }
 }
