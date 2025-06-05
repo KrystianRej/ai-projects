@@ -23,6 +23,7 @@ import { Task14Service } from './task14service';
 import { Neo4jService } from './neo4j.service';
 import { Task15Service } from './task15service';
 import { Task16Service } from './task16service';
+import { Task17Service } from './task17service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -50,6 +51,7 @@ import { Task16Service } from './task16service';
     Task14Service,
     Task15Service,
     Task16Service,
+    Task17Service,
     FileService,
     AidevsApiService,
     Neo4jService,
