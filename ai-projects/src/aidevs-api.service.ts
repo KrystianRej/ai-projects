@@ -45,6 +45,34 @@ export class AidevsApiService {
     }
   }
 
+  async getWithApiKey<R>(endpoint: string): Promise<R> {
+    const apikey = this.configService.get<string>('AI_DEVS_AI_KEY');
+
+    if (!apikey) {
+      throw Error('Missing apikey');
+    }
+
+    const modifiedEndpoint = endpoint.replace('TUTAJ-KLUCZ', apikey);
+
+    try {
+      const response = await axios.get<R>(
+        `${baseaiDevsUrl}${modifiedEndpoint}`,
+
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return error.response.data as R;
+      }
+      throw error;
+    }
+  }
+
   async postWithApiKey<T, R>(endpoint: string, data: T): Promise<R> {
     const apikey = this.configService.get<string>('AI_DEVS_AI_KEY');
     const payload = {
