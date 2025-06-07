@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Task2Service } from './task2.service';
 import { Task3Service, Task3Response } from './task3.service';
@@ -17,6 +17,11 @@ import { Task15Service } from './task15service';
 import { Task16Service } from './task16service';
 import { Task17Service } from './task17service';
 import { Task18Service } from './task18.service';
+import {
+  DroneInstruction,
+  DronePosition,
+  Task19Service,
+} from './task19.service';
 @Controller()
 export class AppController {
   constructor(
@@ -38,6 +43,7 @@ export class AppController {
     private readonly task16Service: Task16Service,
     private readonly task17Service: Task17Service,
     private readonly task18Service: Task18Service,
+    private readonly task19Service: Task19Service,
   ) {}
 
   @Post('reportAnswer')
@@ -152,5 +158,13 @@ export class AppController {
   @Get('task18/find5')
   async task18find5(): Promise<Record<string, string>> {
     return this.task18Service.findNumber5();
+  }
+
+  @Post('task19/drone-position')
+  @HttpCode(200)
+  async task19dronePosition(
+    @Body() droneInstruction: DroneInstruction,
+  ): Promise<DronePosition> {
+    return this.task19Service.getDronePosition(droneInstruction);
   }
 }

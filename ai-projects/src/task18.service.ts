@@ -25,7 +25,8 @@ export class Task18Service {
       const html = response.data;
       const markdown = this.nhm.translate(html);
       return markdown;
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
       console.error('Error converting HTML to Markdown:');
       return 'INVALID_URL';
     }
@@ -119,7 +120,7 @@ export class Task18Service {
         console.log('Start analysis for question: ' + question);
 
         while (nextUrl && !answer) {
-          let markdownResult =
+          const markdownResult =
             nextUrl !== '/'
               ? await this.convertHtmlToMarkdown(
                   nextUrl.includes(baseUrl) ? nextUrl : `${baseUrl}${nextUrl}`,
