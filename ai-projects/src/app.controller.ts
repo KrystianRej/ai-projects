@@ -22,6 +22,7 @@ import {
   DronePosition,
   Task19Service,
 } from './task19.service';
+import { Task20Service } from './task20.service';
 @Controller()
 export class AppController {
   constructor(
@@ -44,6 +45,7 @@ export class AppController {
     private readonly task17Service: Task17Service,
     private readonly task18Service: Task18Service,
     private readonly task19Service: Task19Service,
+    private readonly task20Service: Task20Service,
   ) {}
 
   @Post('reportAnswer')
@@ -166,5 +168,15 @@ export class AppController {
     @Body() droneInstruction: DroneInstruction,
   ): Promise<DronePosition> {
     return this.task19Service.getDronePosition(droneInstruction);
+  }
+
+  @Post('task20/prepare-data')
+  async task20PrepareData(): Promise<void> {
+    await this.task20Service.prepareData();
+  }
+
+  @Get('task20')
+  async task20(): Promise<string> {
+    return this.task20Service.answerQuestions();
   }
 }

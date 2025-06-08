@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { OpenAI } from 'openai';
 import { CreateEmbeddingResponse } from 'openai/resources/embeddings';
 import * as fs from 'fs';
+import {
+  ResponseInput,
+  ResponseInputImage,
+} from 'openai/resources/responses/responses';
 @Injectable()
 export class OpenaiService {
   private openai: OpenAI;
@@ -41,5 +45,32 @@ export class OpenaiService {
       console.error('Error transcribing audio:', error);
       throw error;
     }
+  }
+
+  async extractTextFromBase64Image(base64File: string): Promise<string> {
+    const prompt = `
+    Extract text from the image. Connect words together if that makes sense. Return ONLY text from the image, nothing else. Photo may contain peacoes of notes, that may give full text when connected together into one.
+    `;
+
+    const imageContent: ResponseInputImage = {
+      type: 'input_image',
+      image_url: `data:image/png;base64,${base64File}`,
+      detail: 'auto',
+    };
+
+    const messages: ResponseInput = [
+      {
+        role: 'user',
+        content: [{ type: 'input_text', text: prompt }, imageContent],
+      },
+    ];
+
+    const response = await this.openai.responses.create({
+      model: 'gpt-4.1',
+      input: messages,
+      temperature: 0,
+    });
+
+    return response.output_text;
   }
 }
